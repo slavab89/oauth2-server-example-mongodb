@@ -5,6 +5,12 @@ I'm using version 3.0.0-b3.1 of [node-oauth2-server](https://github.com/oauthjs/
 I've started with [node-oauth2-server-implementation](https://github.com/manjeshpv/node-oauth2-server-implementation) example and changed it to work with the latest version of [node-oauth2-server](https://github.com/oauthjs/node-oauth2-server)<br>
 I modified it while reading the code in the module itself and trying to integrate it to work better - While also making it ES2016 ;)
 
+## Note
+OAuth2 is used for <b>authorization</b>, which is different from <b>authentication</b>. It will not let you have both user login (authentication) and service authorization (Which is what people usually want).
+You will have to implement your own method of user authentication and inject that into OAuth2 flow.
+
+If you want a combined solution, you should take a look at OpenID Connect.
+
 ## Instructions
 The first thing you need to do (Other than having mongodb running) is to create a user and a client. <br>
 I've hooked up very simple routes for that
