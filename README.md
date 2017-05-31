@@ -31,3 +31,50 @@ It is possible to create the generate* functions if you like to create tokens by
 
 ## oauthServerMiddlewares
 This is a file that contains the middlewares themselves and initiates the work with the oauth-server
+
+## Request examples:
+
+### Client credentials
+```
+POST /oauth/token HTTP/1.1
+Host: localhost:8000
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id={clientId}&client_secret={clientSecret
+```
+
+### Password
+```
+POST /oauth/token HTTP/1.1
+Host: localhost:8000
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic {base64({clientId}:{clientPassword})}
+
+grant_type=password&username={username}&password={password}
+```
+
+### Authorization Code
+```
+GET /oauth/authorize?response_type=code&client_id={clientId&redirect_uri=http://localhost:8000/oauth/callback&state={randomString} HTTP/1.1
+Host: localhost:8000
+Authorization: Bearer {access_token}
+```
+
+### Access Token (Using Authorization Code)
+```
+POST /oauth/token HTTP/1.1
+Host: localhost:8000
+Content-Type: application/x-www-form-urlencoded
+
+client_id={clientId}&client_secret={clientSecret}&grant_type=authorization_code&code={authorization_code}&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Foauth%2Fcallback
+```
+
+### Refresh Token
+```
+POST /oauth/token HTTP/1.1
+Host: localhost:8000
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic {base64({clientId}:{client_secret})}
+
+grant_type=refresh_token&refresh_token={refreshToken}
+```
